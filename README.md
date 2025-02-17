@@ -26,7 +26,7 @@ This project demonstrates foundational concepts of backend development, includin
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/pedromgsilva95/TinyLedger.git
    cd ledger
    ```
 
