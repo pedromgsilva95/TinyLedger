@@ -1,0 +1,68 @@
+openapi: 3.0.1
+info:
+  title: Tiny Ledger API
+  description: API to manage a tiny ledger system with deposits, withdrawals, and balance tracking.
+  version: 1.0.0
+
+paths:
+  /api/ledger/transaction:
+    post:
+      summary: Add a transaction
+      description: Record a new transaction (deposit or withdrawal).
+      parameters:
+        - name: amount
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [DEPOSIT, WITHDRAWAL]
+      responses:
+        201:
+          description: Transaction added successfully.
+        400:
+          description: |
+            - Invalid transaction type.
+            - Insufficient balance for withdrawal.
+        405:
+          description: Method not allowed. Please send the requires request parameters.
+
+  /api/ledger/balance:
+    get:
+      summary: Get current balance
+      description: Retrieve the current balance of the ledger.
+      responses:
+        200:
+          description: Successful response with the current balance
+          content:
+            application/json:
+              schema:
+                type: number
+                format: double
+
+  /api/ledger/transactionsHistory:
+    get:
+      summary: Get transaction history
+      description: Retrieve the full list of recorded transactions.
+      responses:
+        200:
+          description: A list of transactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    amount:
+                      type: number
+                    type:
+                      type: string
+                    timestamp:
+                      type: string
+                      format: date-time
